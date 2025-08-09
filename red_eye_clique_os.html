@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Red eYe Clique OS — Find Your Red Zone</title>
+  <meta name="description" content="Interactive Red eYe Clique operating system to find your Red Zone with tips, tricks, and techniques." />
+  <style>
+    :root{
+      --red:#FF0000;
+      --black:#000000;
+      --blue:#007FFF;
+      --gray:#25282A;
+      --green:#39FF14;
+      --white:#FFFFFF;
+      --bg:#0b0b0e;
+      --card:#13131a;
+      --card2:#151520;
+      --text:#e9e9ef;
+      --muted:#a9a9b3;
+      --border:rgba(255,255,255,0.1);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#0b0b0e,#0e0e14);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans',sans-serif;line-height:1.45}
+    a{color:#e7e9ff} a:hover{color:#fff}
+    .container{max-width:1100px;margin:0 auto;padding:0 16px}
+    .nav{position:sticky;top:0;z-index:20;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;gap:16px;align-items:center;padding:12px 16px}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .brand-dot{color:var(--red);font-size:20px;margin-right:6px}
+    .nav-links{margin-left:auto;display:none;gap:14px}
+    .nav-links a{color:#ddd;text-decoration:none;font-size:14px}
+    .nav-links a:hover{color:#fff}
+    @media(min-width:900px){.nav-links{display:flex}}
+    .section{padding:40px 0}
+    h1{font-size:34px;margin:0 0 10px}
+    h2{font-size:26px;margin:0 0 8px}
+    p.lead{color:var(--muted);max-width:740px}
+    .chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-right:8px;border:1px solid var(--border);background:rgba(255,255,255,0.05)}
+    .btn{display:inline-flex;gap:8px;align-items:center;background:#d43333;color:#fff;padding:10px 14px;border-radius:12px;text-decoration:none;border:0;cursor:pointer;font-weight:700}
+    .btn:hover{background:#b90e0e}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+    .grid{display:grid;gap:16px}
+    @media(min-width:900px){.grid.cols-2{grid-template-columns:1fr 1fr} .grid.cols-3{grid-template-columns:1fr 1fr 1fr}}
+    details{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+    details+details{margin-top:10px}
+    summary{list-style:none;cursor:pointer;background:var(--card2);padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+    summary::-webkit-details-marker{display:none}
+    .summary-arrow{opacity:.7;transition:transform .2s ease}
+    details[open] .summary-arrow{transform:rotate(180deg)}
+    .details-body{padding:14px}
+    .muted{color:var(--muted)}
+    .kicker{color:#bbb;font-size:12px;text-transform:uppercase;letter-spacing:.2px}
+    .input, select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#0b0b12;color:#fff}
+    label{font-size:13px;color:#d8d8e0;margin-bottom:6px;display:block}
+    .checkbox{width:18px;height:18px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .copy{background:transparent;border:1px solid var(--border);color:#fff;border-radius:10px;padding:6px 10px;cursor:pointer}
+    .copy:hover{background:#1a1a23}
+    .pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;border:1px solid var(--border);font-size:11px}
+    .footer{border-top:1px solid var(--border);padding:24px 0;color:var(--muted);font-size:14px}
+    .hero{border:1px solid var(--border);border-radius:22px;padding:24px 20px;background:
+      radial-gradient(circle at 10% -10%, rgba(255,0,0,.25), transparent 40%),
+      radial-gradient(circle at 100% 110%, rgba(0,127,255,.18), transparent 35%);}
+    .badge{font-size:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
+    .spacer{height:8px}
+    .small{font-size:12px}
+    .link-btn{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--border);padding:8px 10px;border-radius:10px;text-decoration:none;color:#fff}
+    .link-btn:hover{background:#171722}
+    .points{font-weight:800}
+    .tag{padding:2px 8px;border-radius:999px;background:rgba(57,255,20,.12);border:1px solid var(--border);font-size:11px}
+    .card-title{display:flex;justify-content:space-between;align-items:center}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="brand-dot">●</span>Red eYe Clique OS</div>
+      <nav class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#finder">Find Your Red Zone</a>
+        <a href="#pillars">Pillars</a>
+        <a href="#creative">Creative Command</a>
+        <a href="#missions">Missions</a>
+        <a href="#resources">Resources</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="dashboard" class="section">
+      <div class="container">
+        <div class="hero">
+          <h1>Find Your <span style="color:var(--red)">Red Zone</span></h1>
+          <p class="lead">Tips, tricks, and techniques to enter flow on command. REC exists to help people identify and live from their Red Zone—a state of peak passion and flow where focus, purpose, and execution align. Use the Finder to set your state, deploy a copy‑ready ritual, then log Missions for points. Everything lives here in one clean OS.</p>
+          <div class="row" style="margin-top:8px">
+            <span class="chip" style="background:rgba(255,0,0,.08)">REC OS</span>
+            <span class="chip" style="background:rgba(0,127,255,.10)">Flow</span>
+            <span class="chip" style="background:rgba(57,255,20,.10)">Gamified</span>
+          </div>
+          <div style="margin-top:14px">
+            <a class="btn" href="#finder">Start — Find My Red Zone →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="finder" class="section">
+      <div class="container">
+        <h2>Find Your Red Zone</h2>
+        <p class="muted">Use this quick selector to get a mood & pillar recommendation, plus a copy‑ready ritual.</p>
+        <div class="card">
+          <div class="grid cols-3">
+            <div>
+              <label>Energy</label>
+              <select id="energySel">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <div>
+              <label>Primary Focus</label>
+              <select id="focusSel">
+                <option value="creative" selected>Creative work</option>
+                <option value="admin">Execution / admin</option>
+                <option value="reflective">Journaling / planning</option>
+                <option value="physical">Training / movement</option>
+              </select>
+            </div>
+            <div>
+              <label>Stress Level</label>
+              <select id="stressSel">
+                <option value="calm" selected>Calm</option>
+                <option value="tense">Tense</option>
+                <option value="fried">Fried</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid cols-2" style="margin-top:16px">
+            <div class="card" style="background:var(--card2)">
+              <div class="card-title">
+                <div>
+                  <div class="kicker">Recommended Mood</div>
+                  <div id="moodName" style="font-weight:800;font-size:20px">Creative Spark</div>
+                  <div id="moodFocus" class="small muted">Focus: Fuel (brain energy) + Flow</div>
+                </div>
+                <span id="moodTag" class="tag">spark</span>
+              </div>
+              <div id="moodCues" style="margin-top:8px"></div>
+              <div class="row" id="moodLinks" style="margin-top:10px"></div>
+              <div class="row" style="margin-top:10px">
+                <button id="copyRitualBtn" class="copy">Copy Ritual</button>
+                <span id="copyState" class="small muted"></span>
+              </div>
+            </div>
+            <div class="card" style="background:var(--card2)">
+              <div class="kicker">Quick Technique</div>
+              <details>
+                <summary>90‑Second State Shift <span class="summary-arrow">▼</span></summary>
+                <div class="details-body small">
+                  <ol>
+                    <li>Stand up, shake arms, and roll shoulders 5×.</li>
+                    <li>Inhale 4, hold 2, exhale 6 — repeat 6 rounds.</li>
+                    <li>Ask: “What would make this next 25 min a win?”</li>
+                    <li>Set timer; start first tiny action (≤2 minutes).</li>
+                    <li>After timer: log one win → continue or recharge.</li>
+                  </ol>
+                </div>
+              </details>
+              <details>
+                <summary>Box Breathing (4‑4‑4‑4) <span class="summary-arrow">▼</span></summary>
+                <div class="details-body small">Inhale 4 • hold 4 • exhale 4 • hold 4 — 5 cycles to downshift.</div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card">
+          <div class="row">
+            <input id="tipSearch" class="input" placeholder="Search tips, rituals, techniques…" />
+            <div class="small muted"><span id="tipCount">0</span> match(es)</div>
+          </div>
+          <div id="tipResults" class="grid cols-2" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pillars" class="section">
+      <div class="container">
+        <h2>Pillars</h2>
+        <p class="muted">Fuel • Form • Flow • Fortify — with actions, tips, and links.</p>
+        <div id="pillarsGrid" class="grid cols-2" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <section id="creative" class="section">
+      <div class="container">
+        <h2>Creative Command Center</h2>
+        <p class="muted">Mood‑based environments, rituals, and tools.</p>
+        <div id="moodsGrid" class="grid cols-2" style="margin-top:12px"></div>
+      </div>
+    </section>
+
+    <section id="missions" class="section">
+      <div class="container">
+        <h2>Missions & Points</h2>
+        <p class="muted">Check off today’s habits to earn Red Flame Points.</p>
+        <div class="card">
+          <div class="row" style="justify-content:space-between">
+            <div>
+              <div class="kicker">Today</div>
+              <div id="todayKey" style="font-weight:800">—</div>
+            </div>
+            <div class="row">
+              <div class="small">Points: <span id="points" class="points">0</span></div>
+              <button id="resetBtn" class="copy">Reset</button>
+              <button id="backupBtn" class="copy">Backup</button>
+            </div>
+          </div>
+          <div id="missionsList" class="grid cols-2" style="margin-top:12px"></div>
+          <p class="small muted" style="margin-top:8px">Tip: Redeem point milestones for discounts, drops, or REC badges.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="section">
+      <div class="container">
+        <h2>Resources</h2>
+        <div class="card">
+          <div id="resourcesGrid"></div>
+          <div class="spacer"></div>
+          <div class="small">
+            <strong>Brand Colors:</strong> Vivid Red #FF0000, Electric Blue #007FFF, Graphite Gray #25282A, Neon Green #39FF14, Pure White #FFFFFF<br/>
+            <strong>Tagline:</strong> “What do your eYes get RED for?”
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="container">
+        <h2>Product & Campaign Roadmap</h2>
+        <div class="card" id="roadmapDetails">
+          <!-- Roadmap details will be rendered here dynamically -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container row" style="justify-content:space-between">
+      <div>© <span id="year">2025</span> Red eYe Clique — “What do your eYes get RED for?”</div>
+      <div class="row">
+        <a class="link-btn" href="#dashboard">Back to top</a>
+        <a class="link-btn" href="#resources">Resources</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Data ---------------------------------------------------------------
+    // Defines the four core pillars of the Red eYe Clique OS.
+    // Each pillar includes a title, summary, actionable items, links, and quick tips.
+    const PILLARS = [
+      {
+        id: "fuel",
+        title: "Fuel (Nutrition)",
+        summary: "Adopt a nutrient-dense, Mediterranean-style pattern. Aim for 50% of each plate from vegetables & fruits.",
+        actions: [
+          "Mission: Power Your Passion — log vegetables/fruits; target ≥ 50% of plate.",
+          "Track in the Red eYe Fuel Tracker (journal/app).",
+          "Try: Citrus Chill / Desert Breeze teas; 5-day Junk Detox mini-reset."
+        ],
+        links: [
+          { label: "Meal-prep template", href: "#resources-mealprep" },
+          { label: "Junk Detox PDF (coming soon)", href: "#roadmap" }
+        ],
+        tips: [
+          "Batch-cook grains/legumes on Sunday; build bowls fast midweek.",
+          "Color rule: 3 colors on every plate → better micronutrient coverage.",
+          "Hydration primer: drink a glass of water before every meal."
+        ]
+      },
+      {
+        id: "form",
+        title: "Form (Movement)",
+        summary: "≥150–300 min/week moderate cardio + 2–3 strength days. Log ≥30 min movement daily.",
+        actions: [
+          "Mission: Flow into Form — earn Red Flame Points for consistency.",
+          "Strength x2–3/week; walking/elliptical/HIIT to fill aerobic minutes.",
+          "Nightclockers Lo‑Fi Ritual: movement cards + playlist for late sessions."
+        ],
+        links: [
+          { label: "Create Lo‑Fi playlist", href: "https://open.spotify.com/search/lofi%20beats" },
+          { label: "Warm-up & mobility (search)", href: "https://www.youtube.com/results?search_query=5+minute+dynamic+warmup" }
+        ],
+        tips: [
+          "Use micro-sets (1–2 sets) between desk blocks — accumulate volume.",
+          "Walk calls: pace while on the phone; log steps automatically.",
+          "Pair strength with a fixed song setlist to anchor the habit."
+        ]
+      },
+      {
+        id: "flow",
+        title: "Flow (Mind + Mood)",
+        summary: "Stress management, sleep hygiene, resilience. 5‑minute breathwork daily; streaks earn rewards.",
+        actions: [
+          "Mission: Control the Flame — do a 5‑minute breath reset before deep work.",
+          "Use the Red Zone Blend roller; F.L.O.W. devotional audio nightly.",
+          "Weighted blanket + dark room for quicker downshift."
+        ],
+        links: [
+          { label: "5‑minute box breathing (search)", href: "https://www.youtube.com/results?search_query=5+minute+box+breathing" },
+          { label: "Guided devotional (search)", href: "https://www.youtube.com/results?search_query=KJV+devotional+sleep" }
+        ],
+        tips: [
+          "3‑2‑1 sleep rule: no food 3h, no screens 2h, no work 1h before bed.",
+          "Swap bright white bulbs after 8pm for warm lighting.",
+          "Use a single focus question to enter flow: ‘What would make this 1 block a win?’"
+        ]
+      },
+      {
+        id: "fortify",
+        title: "Fortify (Recovery & Resilience)",
+        summary: "7–9 hours sleep, hydrate, and minimize toxins. Rest to Rise.",
+        actions: [
+          "Mission: Rest to Rise — log sleep duration & water intake.",
+          "Recovery Box: sleep mask, hydration tracker, magnesium sachets.",
+          "Wind-down stack: breathwork → journal → lights out."
+        ],
+        links: [
+          { label: "Sleep sounds (search)", href: "https://open.spotify.com/search/rain%20sounds" },
+          { label: "Hydration calculator", href: "https://www.google.com/search?q=hydration+calculator" }
+        ],
+        tips: [
+          "Anchor wake time (even on weekends) → stabilizes circadian rhythm.",
+          "Morning light exposure ≥5–10 min → better energy later.",
+          "Electrolyte pinch (salt + lemon) if training hard or in heat."
+        ]
+      }
+    ];
+
+    // Defines different moods with associated cues and links for creative command.
+    const MOODS = [
+      {
+        id: "spark",
+        name: "Creative Spark",
+        color: "var(--blue)",
+        cues: [
+          "Electric Blue LEDs + a Vivid Red pen on desk.",
+          "Diffuse citrus (grapefruit / orange).",
+          "Open inspiration board; 5–10 min free-write or mind-map.",
+          "Play Spark playlist (cinematic / lo‑fi)."
+        ],
+        links: [
+          { label: "Epic Film Score (search)", href: "https://open.spotify.com/search/Epic%20Film%20Score" },
+          { label: "Moodboard ideas (Pinterest)", href: "https://www.pinterest.com/search/pins/?q=creative%20moodboard" }
+        ]
+      },
+      {
+        id: "grind",
+        name: "Tactical Grind",
+        color: "var(--gray)",
+        cues: [
+          "Clear desk; highlight top‑3 tasks in Neon Green.",
+          "Peppermint/eucalyptus cue; start Pomodoro 25/5.",
+          "Play low‑tempo lo‑fi or 12 Hz alpha wave focus track.",
+          "Wear the Red eYe Reminder wristband to ‘lock in’."
+        ],
+        links: [
+          { label: "Pomodoro timer", href: "https://pomofocus.io/" },
+          { label: "Alpha focus (search)", href: "https://www.youtube.com/results?search_query=12hz+alpha+focus" }
+        ]
+      },
+      {
+        id: "reflect",
+        name: "Reflective Recharge",
+        color: "var(--white)",
+        cues: [
+          "Warm light or candle; sandalwood/cedar scent.",
+          "Read today’s KJV verse; journal 3 wins + 1 intention.",
+          "5‑minute breath prayer or box breathing."
+        ],
+        links: [
+          { label: "KJV verse of the day", href: "https://www.kingjamesbibleonline.org/daily-bible-verse.html" },
+          { label: "Guided breath prayer (search)", href: "https://www.youtube.com/results?search_query=breath+prayer+5+minutes" }
+        ]
+      },
+      {
+        id: "beast",
+        name: "Physical Activation",
+        color: "var(--green)",
+        cues: [
+          "Hydrate, dynamic warm‑up, cue ‘Beast’ playlist.",
+          "Track key lifts / cardio metrics; cool‑down + breathwork.",
+          "Log one performance note to close the loop."
+        ],
+        links: [
+          { label: "Beast Mode mix (search)", href: "https://open.spotify.com/search/beast%20mode%20workout" },
+          { label: "5‑min dynamic warm‑up (search)", href: "https://www.youtube.com/results?search_query=5+minute+dynamic+warmup" }
+        ]
+      }
+    ];
+
+    // Defines daily missions that users can check off to earn points.
+    const MISSIONS = [
+      { id: "veg", label: "Veggies & Fruit ≥ 50% plate", points: 5, pillar: "fuel" },
+      { id: "mv30", label: "30+ min movement", points: 10, pillar: "form" },
+      { id: "breath5", label: "5‑min breathwork", points: 3, pillar: "flow" },
+      { id: "sleep", label: "7–9 hrs sleep", points: 7, pillar: "fortify" },
+      { id: "water", label: "Hydration goal met", points: 4, pillar: "fortify" }
+    ];
+
+    // Defines external and internal resources for the user.
+    const RESOURCES = [
+      { id: "resources-brand", title: "REC Brand Anchors", href: "#resources-brand" },
+      { id: "resources-rituals", title: "Mood Ritual Checklists", href: "#creative" },
+      { id: "resources-mealprep", title: "Meal‑Prep Template (copy to notes)", href: "#fuel" },
+      { id: "resources-healthpdf", title: "Health Manual PDF (attach separately)", href: "#roadmap" },
+      { id: "resources-flowguide", title: "Flow Activation Guide", href: "#finder" }
+    ];
+
+    // New data from the REC Master Brand Playbook PDF
+    const BRAND_IDENTITY = {
+      corePhilosophy: "The Red Zone: A state of peak passion and flow where focus, purpose, and execution align. REC exists to help people identify and live from their Red Zone.",
+      mission: "Inspire and empower individuals to discover their Red Zone—celebrating growth, resilience, and the relentless pursuit of goals.",
+      vision: "A world where people are driven by passion, engaged in purpose, and empowered to live authentically and fearlessly.",
+      whatRecIs: "Not merely a clothing line—a collective and community where many walks of life cross into Red eYe Hours to push beyond the norm.",
+      redEyeHours: "Time invested after daily duties toward goals and the plans to achieve them.",
+      hierarchy: "Neo (1), Visionary (2), Ambassador (3), Elite (4), G.O.D. (5). Advancement is personal—measured by goals achieved and living the life you choose.",
+      coreValues: [
+        "Passion - pursue what excites you most.",
+        "Resilience - overcome obstacles and emerge stronger.",
+        "Community - build a supportive, inclusive environment.",
+        "Authenticity - live aligned with your values.",
+        "Growth - foster continuous learning and development."
+      ],
+      toneOfVoice: [
+        "Motivational and empowering",
+        "Inclusive and authentic",
+        "Energetic and direct"
+      ]
+    };
+
+    const BRAND_SYMBOLISM = {
+      redZone: "Flow and passion—eyes 'turn red' with focus.",
+      redEyes: "Intense focus; heightened engagement and motivation.",
+      flamesFire: "The inner fire that fuels relentless pursuit.",
+      deadEyes: "The opposite—apathy and drift; a life without purpose.",
+      zombieApocalypseMetaphor: "A vivid contrast between the living (purpose-driven) and the 'zombie state' (unmotivated). REC awakens passion, helps people 'break free.'",
+      zombieKiller: "A motivational catalyst who mentors others to escape mediocrity and find their Red Zone.",
+      mascot: {
+        name: "Red Rigo",
+        description: "A California bear (about 4 ft), cardinal red/tan with red eyes. Persistent, sometimes hot-headed, hates 'jobs' but loves skills. Drinks Red eYe Reups, rarely sleeps, and refuses stagnation. He tries many paths and never quits growth—guiding others into the Further (the unknown). Often wears a hat or jersey."
+      }
+    };
+
+    const SLOGANS_HASHTAGS = {
+      slogans: [
+        "What Do Your eYes Get RED For?",
+        "Find Your Red Zone",
+        "Crave Authenticity, Live Unapologetically",
+        "Face Everything And Rise (F.E.A.R.)",
+        "Unleash Apex / Unleash Your Apex",
+        "Peak Performance League",
+        "MORE Time, MORE Grind, MORE You, MORE Shine",
+        "Unfinished",
+        "To Be Continued",
+        "Passion Ate Today",
+        "Protect Legacy",
+        "Achieving Beyond",
+        "Nighttime Grind, Daytime Glory / Night Warriors, Day Champions",
+        "Join The Movement",
+        "Eating While You're Sleeping"
+      ],
+      hashtags: [
+        "#RedEyeClique",
+        "#UnleashApex",
+        "#FaceEverythingAndRise",
+        "#PeakPerformanceLeague",
+        "#RedEyeReminder",
+        "#ToBeContinued"
+      ]
+    };
+
+    const PRODUCTS_SERVICES = {
+      apparelCollections: [
+        { name: "F.E.A.R.", description: "Face Everything And Rise." },
+        { name: "Apex Achievers", description: "Peak performance and excellence." },
+        { name: "Nightclockers", description: "Late-night hustle; reflective & durable." },
+        { name: "Unleash Your Apex", description: "Unlock potential." },
+        { name: "Face Card", description: "Authenticity and self-expression." },
+        { name: "Recovery & Reflection", description: "Rest, prep, and self-care." },
+        { name: "Time Killer", description: "Time mastery and productivity." }
+      ],
+      accessoriesTools: [
+        { name: "Red eYe Reminder Bands and stickers", description: "Logos & slogans." },
+        { name: "Red Zone Journal", description: "Guided prompts, micro-goals, weekly reviews, monthly reflections, yearly planning." },
+        { name: "Mindful Packs", description: "Essential oil roll-ons, breathing cards, focus drinks; tactile grounding tools." }
+      ],
+      wellnessLine: [
+        { name: "Red Zone Essential Oil Blend", description: "Peppermint, rosemary, lemon, clary sage, cinnamon, frankincense; optional eucalyptus. Formats: roll-on, diffuser blend, massage oil." },
+        { name: "Reed Diffusers", description: "Per-unit cost ~$4.50–$8.50; suggested retail $19.99–$34.99." },
+        { name: "Focus Beverages", description: "Nightclockers Cold Brew; Moonlight Matcha; Midnight Mocha Energizer; Red Zone Vitality Blend; Recovery Hydration Water." },
+        { name: "Fuel", description: "Red Zone Overnight Oats; Legacy Lift Smoothie Bowl; Eggcellent Energy Wraps." }
+      ],
+      trainingEducation: [
+        { name: "The Beast Training Academy", description: "Physical fitness, self-defense, firearms, survival skills." },
+        { name: "Workshops", description: "Time mastery, resilience, goal systems, mindfulness for focus." }
+      ]
+    };
+
+    const COMMUNITY_PROGRAMS = {
+      recHub: "Online platform for journeys, accountability, exclusives.",
+      facebookGroup: "Facebook Group - 'Find Your Red Zone': rules, weekly themes, live sessions, spotlights, surveys.",
+      recognition: "Badges, certificates, member-of-the-week, early product access.",
+      youtubePodcast: [
+        "Interviews on 'What do your eyes get RED for?'",
+        "Behind-the-scenes making of products/campaigns.",
+        "Mini-lectures on flow, resilience, goal systems."
+      ],
+      supportingAdhdAnxiety: {
+        tools: "Red Zone Focus Tools: essential oils (diffusers/roll-ons), mindful breathing cards, tactile bands, focus drinks.",
+        activities: "Guided flow activities: journaling, creative sprints, micro-goals; 'Nightclockers Creative Challenges'.",
+        wellnessMovement: "Apex Achievers workouts; yoga/stretch routines; nutrition recipes.",
+        belonging: "Community belonging: private groups, mentorship, encouragement slogans."
+      }
+    };
+
+    const FLOW_STATE_SCIENCE = {
+      definition: "Flow (aka The Red Zone): deep absorption, clear goals, immediate feedback, challenge–skill balance, control, loss of self-consciousness, altered time, intrinsic reward.",
+      learningActivities: [
+        "Thought Experiment: immerse in a favorite video game; identify absorption & time distortion.",
+        "Reflective Writing: recall times you felt ‘in the zone’; list conditions/sensations.",
+        "Flow Interview: ask an artist/athlete about triggers, routines, interruptions.",
+        "Flow Experiment: pick an activity; set goals; remove distractions; measure immersion; iterate.",
+        "Flow Research: read Csikszentmihalyi; compare theories; apply new tactics.",
+        "Group Discussion: ‘What triggers flow for you?’ share tips."
+      ],
+      maintainingFlow: [
+        "Fortress of Focus: notifications off; clean workspace; breathing warmup.",
+        "Challenge–Skill Sweet Spot: add difficulty if bored; train skills if anxious.",
+        "Fuel the System: hydration, smart snacks, movement; ambient music/no lyrics.",
+        "Inner Game: positive framing; schedule deep work in your peak window."
+      ],
+      breathingSomaticTools: [
+        "Box (4-4-4-4), 4-7-8, Alternate Nostril, Ujjayi ‘ocean’ breath.",
+        "Red Zone Reset: inhale 6 (visualize passion), hold 2 (affirm focus), exhale 6 (release).",
+        "Pulse Points for oils: wrists, neck, temples, behind ears, chest, elbows, navel, behind knees, ankles, soles."
+      ]
+    };
+
+    const REC_ROADMAP_DETAILS = [
+      {
+        title: "1) Finalize style guide (colors/typography) with canonical choices.",
+        description: "Ensuring brand consistency across all assets."
+      },
+      {
+        title: "2) Launch content calendar; FB Group & REC Hub beta; seed polls & challenges.",
+        description: "Building initial community engagement and content pipeline."
+      },
+      {
+        title: "3) Pilot ‘Unleash Apex’ 30-day campaign; collect UGC; measure funnel metrics.",
+        description: "First major campaign to drive user-generated content and measure impact."
+      },
+      {
+        title: "4) Ship Red Zone Journal (print/digital); launch Mindful Packs & oils.",
+        description: "Releasing key physical products."
+      },
+      {
+        title: "5) Plan pop-ups (heat press + workshops).",
+        description: "Engaging the community through in-person events."
+      },
+      {
+        title: "6) Grow micro-influencer pods; affiliates; member recognition & badges.",
+        description: "Expanding reach and rewarding community loyalty."
+      },
+      {
+        title: "7) Iterate via analytics; expand Peak Performance League; refine PMF.",
+        description: "Continuous improvement and scaling key initiatives."
+      }
+    ];
+
+
+    // --- Helpers ------------------------------------------------------------
+    /**
+     * Generates a unique key for the current date (YYYY-MM-DD) for mission tracking.
+     * @returns {string} The formatted date string.
+     */
+    const todayKey = () => {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${day}`;
+    };
+
+    /**
+     * Shorthand for document.querySelector.
+     * @param {string} sel - The CSS selector.
+     * @param {HTMLElement} [root=document] - The root element to query from.
+     * @returns {HTMLElement} The first element matching the selector.
+     */
+    const qs = (sel, root=document) => root.querySelector(sel);
+
+    /**
+     * Shorthand for document.querySelectorAll, returning an array.
+     * @param {string} sel - The CSS selector.
+     * @param {HTMLElement} [root=document] - The root element to query from.
+     * @returns {HTMLElement[]} An array of elements matching the selector.
+     */
+    const qsa = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // --- Finder logic -------------------------------------------------------
+    /**
+     * Computes a suggested mood based on user input for energy, focus, and stress levels.
+     * @param {string} energy - User's energy level (low, medium, high).
+     * @param {string} focus - User's primary focus (creative, admin, reflective, physical).
+     * @param {string} stress - User's stress level (calm, tense, fried).
+     * @returns {{mood: string, id: string, rec: string}} An object containing the recommended mood name, its ID, and a focus recommendation.
+     */
+    function computeSuggestion(energy, focus, stress){
+      // If stress is not calm, recommend Reflective Recharge for recovery.
+      if(stress !== "calm") return { mood: "Reflective Recharge", id: "reflect", rec: "Fortify / Flow" };
+      // Recommendations based on primary focus.
+      if(focus === "physical") return { mood: "Physical Activation", id: "beast", rec: "Form" };
+      if(focus === "admin") return { mood: "Tactical Grind", id: "grind", rec: "Flow (focus)" };
+      if(focus === "creative") return { mood: "Creative Spark", id: "spark", rec: "Fuel (brain energy) + Flow" };
+      // Default to Creative Spark if no specific condition met.
+      return { mood: "Creative Spark", id: "spark", rec: "Flow" };
+    }
+
+    /**
+     * Renders and updates the "Find Your Red Zone" section based on user selections.
+     * Handles dynamic display of recommended mood, cues, links, and ritual copying.
+     */
+    function renderFinder(){
+      const energySel = qs("#energySel");
+      const focusSel  = qs("#focusSel");
+      const stressSel = qs("#stressSel");
+
+      /**
+       * Updates the displayed mood and ritual based on current select box values.
+       */
+      function update(){
+        const { mood, id, rec } = computeSuggestion(energySel.value, focusSel.value, stressSel.value);
+        const m = MOODS.find(x => x.id === id); // Find the corresponding mood object.
+
+        // Update mood display elements.
+        qs("#moodName").textContent = m.name;
+        qs("#moodFocus").textContent = "Focus: " + rec;
+        qs("#moodTag").textContent = m.id;
+
+        // Render mood cues as a list.
+        const cues = m.cues.map(c => `<div class="small">• ${c}</div>`).join("");
+        qs("#moodCues").innerHTML = cues;
+
+        // Render mood links as buttons.
+        qs("#moodLinks").innerHTML = m.links.map(l => `<a class="link-btn" target="_blank" rel="noreferrer" href="${l.href}">↗ ${l.label}</a>`).join("");
+
+        // Set up copy ritual functionality.
+        const ritual = `${m.name} — 5‑Step Ritual\n\n` + m.cues.map((c,i)=>`${i+1}. ${c}`).join("\n");
+        const btn = qs("#copyRitualBtn");
+        btn.onclick = async () => {
+          try{
+            await navigator.clipboard.writeText(ritual); // Copy text to clipboard.
+            qs("#copyState").textContent = "Copied!"; // Display success message.
+            setTimeout(()=>qs("#copyState").textContent="", 1200); // Clear message after a short delay.
+          }catch(e){
+            qs("#copyState").textContent = "Copy failed"; // Display error message if copy fails.
+          }
+        };
+      }
+
+      // Add event listeners to update the finder when select box values change.
+      [energySel, focusSel, stressSel].forEach(el => el.addEventListener("change", update));
+      update(); // Initial update on load.
+    }
+
+    // --- Tips search --------------------------------------------------------
+    /**
+     * Renders and manages the "Tips Search" functionality.
+     * Aggregates tips from Pillars and Moods, allows searching, and displays filtered results.
+     */
+    function renderTips(){
+      const all = [];
+      // Collect all tips from PILLARS.
+      PILLARS.forEach(p => p.tips.forEach(t => all.push({scope:p.title,text:t})));
+      // Collect all cues (which act as tips) from MOODS.
+      MOODS.forEach(m => m.cues.forEach(t => all.push({scope:m.name,text:t})));
+
+      const input = qs("#tipSearch");
+      const results = qs("#tipResults");
+      const count = qs("#tipCount");
+
+      /**
+       * Draws the list of tips in the search results area.
+       * @param {Array<Object>} list - The filtered list of tip objects to display.
+       */
+      function draw(list){
+        count.textContent = list.length; // Update tip count.
+        results.innerHTML = list.map(t => `
+          <div class="card small">
+            <div class="muted" style="font-size:11px;margin-bottom:4px">${t.scope}</div>
+            ${t.text}
+          </div>
+        `).join("");
+      }
+
+      // Add input event listener for live searching.
+      input.addEventListener("input", () => {
+        const q = input.value.toLowerCase(); // Get search query.
+        // Filter tips that include the query in their text.
+        draw(all.filter(t => t.text.toLowerCase().includes(q)));
+      });
+      draw(all); // Initial render of all tips.
+    }
+
+    // --- Pillars cards ------------------------------------------------------
+    /**
+     * Renders the "Pillars" section dynamically.
+     * Creates a card for each pillar, displaying its title, summary, actions, tips, and links.
+     */
+    function renderPillars(){
+      const grid = qs("#pillarsGrid");
+      grid.innerHTML = PILLARS.map(p => `
+        <div class="card">
+          <div class="card-title">
+            <h3 style="margin:0">${p.title}</h3>
+            <span class="pill">${p.id}</span>
+          </div>
+          <p class="small muted" style="margin-top:6px">${p.summary}</p>
+          <details>
+            <summary>Actions & Missions <span class="summary-arrow">▼</span></summary>
+            <div class="details-body small">
+              <ul>${p.actions.map(a => `<li>${a}</li>`).join("")}</ul>
+            </div>
+          </details>
+          <details>
+            <summary>Quick Tips <span class="summary-arrow">▼</span></summary>
+            <div class="details-body small">
+              <ul>${p.tips.map(a => `<li>${a}</li>`).join("")}</ul>
+            </div>
+          </details>
+          <details>
+            <summary>Helpful Links <span class="summary-arrow">▼</span></summary>
+            <div class="details-body row small">
+              ${p.links.map(l => `<a class="link-btn" target="_blank" rel="noreferrer" href="${l.href}">↗ ${l.label}</a>`).join("")}
+            </div>
+          </details>
+        </div>
+      `).join("");
+    }
+
+    // --- Creative moods -----------------------------------------------------
+    /**
+     * Renders the "Creative Command Center" section dynamically.
+     * Creates a card for each mood, displaying its name, a 5-step ritual, and relevant links/tools.
+     * Includes a button to copy the ritual to the clipboard.
+     */
+    function renderMoods(){
+      const grid = qs("#moodsGrid");
+      grid.innerHTML = MOODS.map(m => {
+        const ritualText = `${m.name} — 5‑Step Ritual\n\n` + m.cues.map((c,i)=>`${i+1}. ${c}`).join("\n");
+        return `
+          <div class="card">
+            <div class="card-title">
+              <h3 style="margin:0">${m.name}</h3>
+              <span class="pill" style="border-color:var(--border)">${m.id}</span>
+            </div>
+            <details>
+              <summary>5‑Step Ritual <span class="summary-arrow">▼</span></summary>
+              <div class="details-body small">
+                <ul>${m.cues.map(c => `<li>${c}</li>`).join("")}</ul>
+                <div class="row" style="margin-top:6px">
+                  <button class="copy mood-copy-ritual" data-ritual="${encodeURIComponent(ritualText)}">Copy Ritual</button>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>Links & Tools <span class="summary-arrow">▼</span></summary>
+              <div class="details-body row small">
+                ${m.links.map(l => `<a class="link-btn" target="_blank" rel="noreferrer" href="${l.href}">↗ ${l.label}</a>`).join("")}
+              </div>
+            </details>
+          </div>`;
+      }).join("");
+
+      // Attach event listeners after elements are rendered
+      qsa(".mood-copy-ritual", grid).forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const ritualText = decodeURIComponent(btn.getAttribute("data-ritual"));
+          try {
+            await navigator.clipboard.writeText(ritualText);
+            // Provide visual feedback (e.g., change button text temporarily)
+            const originalText = btn.textContent;
+            btn.textContent = "Copied!";
+            setTimeout(() => {
+              btn.textContent = originalText;
+            }, 1200);
+          } catch (e) {
+            console.error("Failed to copy ritual:", e);
+            const originalText = btn.textContent;
+            btn.textContent = "Copy failed!";
+            setTimeout(() => {
+              btn.textContent = originalText;
+            }, 1200);
+          }
+        });
+      });
+    }
+
+    // --- Missions board -----------------------------------------------------
+    /**
+     * Renders and manages the "Missions & Points" section.
+     * Displays daily missions, allows users to check them off, calculates points,
+     * and provides reset and backup functionalities using local storage.
+     */
+    function renderMissions(){
+      const key = todayKey(); // Get today's date key.
+      qs("#todayKey").textContent = key; // Display today's date.
+      const storageKey = "rec.missions." + key; // Unique storage key for today's missions.
+      let state = {}; // Initialize state for mission checkboxes.
+
+      // Attempt to load mission state from local storage. Handle potential parsing errors.
+      try{ state = JSON.parse(localStorage.getItem(storageKey) || "{}"); }catch{ state = {}; }
+
+      const list = qs("#missionsList");
+
+      /**
+       * Draws the missions list, calculates points, and attaches event listeners.
+       */
+      function draw(){
+        let pts = 0; // Initialize points.
+        list.innerHTML = MISSIONS.map(m => {
+          const checked = !!state[m.id]; // Check if mission is completed for today.
+          if(checked) pts += m.points; // Add points if checked.
+          return `
+            <label class="card row small" style="align-items:center">
+              <input class="checkbox" type="checkbox" ${checked ? "checked":""} data-id="${m.id}" />
+              <span style="flex:1">${m.label}</span>
+              <span class="pill">+${m.points}</span>
+            </label>`;
+        }).join("");
+        qs("#points").textContent = pts; // Update displayed points.
+
+        // Add change listeners to each checkbox.
+        qsa("input[type=checkbox]", list).forEach(cb => {
+          cb.addEventListener("change", () => {
+            const id = cb.getAttribute("data-id");
+            state[id] = cb.checked; // Update state.
+            localStorage.setItem(storageKey, JSON.stringify(state)); // Save state to local storage.
+            draw(); // Redraw the missions to update points.
+          });
+        });
+      }
+      draw(); // Initial draw of missions.
+
+      // Set up reset button: clear state and redraw.
+      qs("#resetBtn").onclick = () => { state = {}; localStorage.setItem(storageKey, JSON.stringify(state)); draw(); };
+
+      // Set up backup button: download current mission state as a JSON file.
+      qs("#backupBtn").onclick = () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], {type:"application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "rec-missions-" + key + ".json"; // Suggest a filename.
+        a.click(); // Trigger download.
+        URL.revokeObjectURL(url); // Clean up the object URL.
+      };
+    }
+
+    // --- Resources ----------------------------------------------------------
+    /**
+     * Renders the "Resources" section dynamically, now including detailed brand information.
+     */
+    function renderResources(){
+      const resourcesGrid = qs("#resourcesGrid");
+      let html = RESOURCES.map(r => `
+        <a class="card small" href="${r.href}">${r.title}</a>
+      `).join("");
+
+      html += `
+        <div class="spacer"></div>
+        <details>
+          <summary>Brand Identity <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <p><strong>Core Philosophy:</strong> ${BRAND_IDENTITY.corePhilosophy}</p>
+            <p><strong>Mission:</strong> ${BRAND_IDENTITY.mission}</p>
+            <p><strong>Vision:</strong> ${BRAND_IDENTITY.vision}</p>
+            <p><strong>What REC Is:</strong> ${BRAND_IDENTITY.whatRecIs}</p>
+            <p><strong>Red eYe Hours:</strong> ${BRAND_IDENTITY.redEyeHours}</p>
+            <p><strong>REC Hierarchy:</strong> ${BRAND_IDENTITY.hierarchy}</p>
+            <p><strong>Core Values:</strong></p>
+            <ul>${BRAND_IDENTITY.coreValues.map(v => `<li>${v}</li>`).join("")}</ul>
+            <p><strong>Tone of Voice:</strong></p>
+            <ul>${BRAND_IDENTITY.toneOfVoice.map(t => `<li>${t}</li>`).join("")}</ul>
+          </div>
+        </details>
+        <details>
+          <summary>Brand Symbolism & Narrative <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <p><strong>Red Zone:</strong> ${BRAND_SYMBOLISM.redZone}</p>
+            <p><strong>Red Eyes:</strong> ${BRAND_SYMBOLISM.redEyes}</p>
+            <p><strong>Flames/Fire:</strong> ${BRAND_SYMBOLISM.flamesFire}</p>
+            <p><strong>Dead Eyes:</strong> ${BRAND_SYMBOLISM.deadEyes}</p>
+            <p><strong>Zombie Apocalypse Metaphor:</strong> ${BRAND_SYMBOLISM.zombieApocalypseMetaphor}</p>
+            <p><strong>Zombie Killer:</strong> ${BRAND_SYMBOLISM.zombieKiller}</p>
+            <p><strong>Mascot - Red Rigo:</strong> ${BRAND_SYMBOLISM.mascot.description}</p>
+          </div>
+        </details>
+        <details>
+          <summary>Slogans & Hashtags <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <p><strong>Slogans:</strong></p>
+            <ul>${SLOGANS_HASHTAGS.slogans.map(s => `<li>${s}</li>`).join("")}</ul>
+            <p><strong>Hashtags:</strong></p>
+            <ul>${SLOGANS_HASHTAGS.hashtags.map(h => `<li>${h}</li>`).join("")}</ul>
+          </div>
+        </details>
+        <details>
+          <summary>Products & Services <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <h4>Apparel Collections:</h4>
+            <ul>${PRODUCTS_SERVICES.apparelCollections.map(c => `<li><strong>${c.name}:</strong> ${c.description}</li>`).join("")}</ul>
+            <h4>Accessories & Tools:</h4>
+            <ul>${PRODUCTS_SERVICES.accessoriesTools.map(a => `<li><strong>${a.name}:</strong> ${a.description}</li>`).join("")}</ul>
+            <h4>Wellness Line:</h4>
+            <ul>${PRODUCTS_SERVICES.wellnessLine.map(w => `<li><strong>${w.name}:</strong> ${w.description}</li>`).join("")}</ul>
+            <h4>Training & Education:</h4>
+            <ul>${PRODUCTS_SERVICES.trainingEducation.map(t => `<li><strong>${t.name}:</strong> ${t.description}</li>`).join("")}</ul>
+          </div>
+        </details>
+        <details>
+          <summary>Community & Programs <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <p><strong>REC Hub:</strong> ${COMMUNITY_PROGRAMS.recHub}</p>
+            <p><strong>Facebook Group:</strong> ${COMMUNITY_PROGRAMS.facebookGroup}</p>
+            <p><strong>Recognition:</strong> ${COMMUNITY_PROGRAMS.recognition}</p>
+            <p><strong>YouTube/Podcast Topics:</strong></p>
+            <ul>${COMMUNITY_PROGRAMS.youtubePodcast.map(y => `<li>${y}</li>`).join("")}</ul>
+            <h4>Supporting ADHD & Anxiety:</h4>
+            <p><strong>Tools:</strong> ${COMMUNITY_PROGRAMS.supportingAdhdAnxiety.tools}</p>
+            <p><strong>Activities:</strong> ${COMMUNITY_PROGRAMS.supportingAdhdAnxiety.activities}</p>
+            <p><strong>Wellness & Movement:</strong> ${COMMUNITY_PROGRAMS.supportingAdhdAnxiety.wellnessMovement}</p>
+            <p><strong>Community Belonging:</strong> ${COMMUNITY_PROGRAMS.supportingAdhdAnxiety.belonging}</p>
+          </div>
+        </details>
+        <details>
+          <summary>Flow State – Science to Practice <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">
+            <p><strong>Definition of Flow (The Red Zone):</strong> ${FLOW_STATE_SCIENCE.definition}</p>
+            <h4>Learning Activities:</h4>
+            <ol>${FLOW_STATE_SCIENCE.learningActivities.map(l => `<li>${l}</li>`).join("")}</ol>
+            <h4>Maintaining Flow – Practical Strategies:</h4>
+            <ul>${FLOW_STATE_SCIENCE.maintainingFlow.map(m => `<li>${m}</li>`).join("")}</ul>
+            <h4>Breathing & Somatic Tools:</h4>
+            <ul>${FLOW_STATE_SCIENCE.breathingSomaticTools.map(b => `<li>${b}</li>`).join("")}</ul>
+          </div>
+        </details>
+      `;
+      resourcesGrid.innerHTML = html;
+    }
+
+    // --- Product & Campaign Roadmap -----------------------------------------------------
+    /**
+     * Renders the "Product & Campaign Roadmap" section dynamically.
+     */
+    function renderRoadmap(){
+      const roadmapDetails = qs("#roadmapDetails");
+      roadmapDetails.innerHTML = REC_ROADMAP_DETAILS.map(item => `
+        <details>
+          <summary>${item.title} <span class="summary-arrow">▼</span></summary>
+          <div class="details-body small">${item.description}</div>
+        </details>
+      `).join("");
+
+      roadmapDetails.innerHTML += `
+        <div class="row" style="margin-top:10px">
+          <a class="link-btn" href="#missions">Go to Missions</a>
+          <a class="link-btn" href="#pillars">Explore Pillars</a>
+          <a class="link-btn" href="#creative">Open Creative Command</a>
+        </div>
+      `;
+    }
+
+    // --- Init ----------------------------------------------------------------
+    // Ensures all DOM elements are loaded before running initialization functions.
+    document.addEventListener("DOMContentLoaded", () => {
+      qs("#year").textContent = new Date().getFullYear(); // Set current year in footer.
+      renderFinder();    // Initialize the "Find Your Red Zone" section.
+      renderTips();      // Initialize the tips search.
+      renderPillars();   // Initialize the pillars section.
+      renderMoods();     // Initialize the creative moods section.
+      renderMissions();  // Initialize the missions board.
+      renderResources(); // Initialize the resources section with expanded data.
+      renderRoadmap();   // Initialize the roadmap section with detailed items.
+    });
+  </script>
+</body>
+</html>
